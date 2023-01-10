@@ -8,3 +8,4 @@ func _process(delta):
 		OS.window_fullscreen = !OS.window_fullscreen
 	elif Input.is_action_just_pressed("exit"):
 		get_tree().quit()
+		

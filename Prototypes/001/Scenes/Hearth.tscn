@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Conquer-the-Tower-dev-sprites.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Hearth.gd" type="Script" id=2]
+
+[node name="Hearth" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 128, 64, 64 )

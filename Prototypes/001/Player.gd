@@ -10,6 +10,7 @@ export(Resource) var moveData
 
 const BULLET: = preload("res://Scenes/Bullet.tscn")
 
+# warning-ignore:unused_argument
 func _physics_process(delta):
 	#movement
 	

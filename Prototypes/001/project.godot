@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "PlayerMovementData",
 "language": "GDScript",
 "path": "res://PlayerMovementData.gd"
+}, {
+"base": "Area2D",
+"class": "hitBox",
+"language": "GDScript",
+"path": "res://HitBox.gd"
 } ]
 _global_script_class_icons={
 "Bullet": "",
 "Player": "",
-"PlayerMovementData": ""
+"PlayerMovementData": "",
+"hitBox": ""
 }
 
 [application]
