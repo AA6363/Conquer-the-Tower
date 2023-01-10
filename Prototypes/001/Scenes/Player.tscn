@@ -4,6 +4,14 @@
 [ext_resource path="res://Player.gd" type="Script" id=2]
 [ext_resource path="res://PlayerMovementDataFast.tres" type="Resource" id=3]
 
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 64, 64 )
+
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
 region = Rect2( 64, 0, 64, 64 )
@@ -12,19 +20,11 @@ region = Rect2( 64, 0, 64, 64 )
 atlas = ExtResource( 1 )
 region = Rect2( 64, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 64, 64 )
-
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ SubResource( 4 ), SubResource( 6 ) ],
+"frames": [ SubResource( 1 ) ],
 "loop": true,
-"name": "Run",
+"name": "Idle",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 5 ) ],
@@ -32,9 +32,9 @@ animations = [ {
 "name": "Jump",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 1 ) ],
+"frames": [ SubResource( 4 ), SubResource( 6 ) ],
 "loop": true,
-"name": "Idle",
+"name": "Run",
 "speed": 5.0
 } ]
 
