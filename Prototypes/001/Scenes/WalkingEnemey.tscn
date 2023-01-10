@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Conquer-the-Tower-dev-sprites.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/WalkingEnemey.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/HitBox.tscn" type="PackedScene" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 256, 128, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="KinematicBody2D" type="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -32 )
+frames = SubResource( 2 )
+
+[node name="LedgeCheckRight" type="RayCast2D" parent="."]
+position = Vector2( 29, -1 )
+enabled = true
+cast_to = Vector2( 0, 4 )
+
+[node name="LedgeCheckLeft" type="RayCast2D" parent="."]
+position = Vector2( -30, -1 )
+enabled = true
+cast_to = Vector2( 0, 4 )
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -30, 0, -27, -20, -5, -31, 5, -31, 27, -21, 30, 0 )
+
+[node name="HitBox" parent="." instance=ExtResource( 3 )]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox"]
+polygon = PoolVector2Array( -32, 0, -27, -22, -5, -32, 5, -32, 27, -22, 31, 0 )
