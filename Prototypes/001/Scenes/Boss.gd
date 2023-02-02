@@ -6,20 +6,26 @@ enum {SHOOT, JUMP, SLIDE, IDLE}
 
 
 
-var state = IDLE
-var state_value = RandomNumberGenerator.new()
+var state := IDLE
+var randomNumber = RandomNumberGenerator.new()
+var state_value 
 var state_decided = {
-	"SHOOT": 0,
-	"JUMP" : 1,
-	"SLIDE": 2,
-	"IDLE" : 3
+	0: SHOOT,
+	1: JUMP,
+	2: SLIDE,
+	3: IDLE
 }
 
-#match state:
-#	SHOOT
-#	JUMP
-#	SLIDE
-#	IDLE
+func _ready():
+	randomNumber.randomize()
+	state_value = randomNumber.randi_range(0, 3)
+
+func _physics_process(delta):
+	
+	
+	if state_value == 0:
+		state = SHOOT
+	print(state)
 
 
 func shoot():
