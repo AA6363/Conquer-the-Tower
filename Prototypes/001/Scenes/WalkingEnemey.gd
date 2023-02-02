@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name walkingEnemey
 
 var direction = Vector2.RIGHT
 var velocity = Vector2.ZERO

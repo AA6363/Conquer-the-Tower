@@ -28,12 +28,24 @@ _global_script_classes=[ {
 "class": "hitBox",
 "language": "GDScript",
 "path": "res://HitBox.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "slimeBoss",
+"language": "GDScript",
+"path": "res://Scenes/Boss.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "walkingEnemey",
+"language": "GDScript",
+"path": "res://Scenes/WalkingEnemey.gd"
 } ]
 _global_script_class_icons={
 "Bullet": "",
 "Player": "",
 "PlayerMovementData": "",
-"hitBox": ""
+"hitBox": "",
+"slimeBoss": "",
+"walkingEnemey": ""
 }
 
 [application]

@@ -1,14 +1,30 @@
 extends Area2D
 class_name hitBox
 
+export(int) var enemy_hp = 5
+export(int) var bossHp = 49
+
 func _on_HitBox_body_entered(body):
+	print(bossHp)
 	if body is Player:
 		if Global.player_lives <= 0:
 			Global.player_lives = 3
-			get_parent().get_child()
 			get_tree().reload_current_scene()
 		else:
 			Global.player_lives -= 1
+			get_tree().call_group("Hp", "size_reduction")
+		
 	if body is Bullet:
-		get_parent().queue_free()
+		if get_parent() is walkingEnemey: #Detects if parent the bullet collided with enemy
+			if enemy_hp <= 0:
+				get_parent().queue_free()
+			else:
+				enemy_hp -=1
+		if get_parent() is slimeBoss:
+			if bossHp <= 0:
+				get_parent().queue_free()
+			else: 
+				bossHp -= 1
 		body.queue_free()
+
+
