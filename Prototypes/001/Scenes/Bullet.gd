@@ -14,7 +14,6 @@ func set_direction(dir):
 func _physics_process(delta):
 	velocity.x = SPEED * delta * direction
 	translate(velocity)
-	pass
 
 func _on_VisibilityNotifier2D_screen_exited():
 	Global.number_of_bullets +=1

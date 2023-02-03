@@ -25,7 +25,6 @@ func _physics_process(delta):
 	
 	if state_value == 0:
 		state = SHOOT
-	print(state)
 
 
 func shoot():
@@ -39,3 +38,4 @@ func slide():
 
 func idle():
 	pass
+	

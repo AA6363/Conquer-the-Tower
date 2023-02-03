@@ -57,6 +57,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://Scenes/Globals.gd"
+AudioPlayer="*res://Scenes/AudioPlayer.tscn"
 
 [display]
 

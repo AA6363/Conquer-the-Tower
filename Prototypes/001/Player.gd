@@ -42,6 +42,7 @@ func _physics_process(delta):
 		double_jump =1
 		if Input.is_action_just_pressed("jump"):
 			velocity.y = moveData.JUMP_FORCE
+			AudioPlayer.play_sound(AudioPlayer.JUMP)
 	else:
 		$AnimatedSprite.animation = "Jump"
 		if Input.is_action_just_released("jump") and velocity.y < moveData.JUMP_FORCE_RELEASE:
@@ -82,3 +83,8 @@ func apply_friction():
 #Speeds up the player to 50, the max value
 func apply_accelaretion(amount):
 	velocity.x = move_toward(velocity.x, amount * moveData.MAX_SPEED , moveData.ACCELERATION)
+	
+func player_die():
+	AudioPlayer.play_sound(AudioPlayer.HURT)
+	get_tree().reload_current_scene()
+	
