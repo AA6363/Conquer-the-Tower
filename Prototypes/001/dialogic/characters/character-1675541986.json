@@ -1,0 +1,21 @@
+{
+	"color": "#ffac51a7",
+	"description": "",
+	"display_name": "",
+	"display_name_bool": false,
+	"id": "character-1675541986.json",
+	"mirror_portraits": false,
+	"name": "Jeleina",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 650,
+	"offset_y": -100,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": "res://dialogue_sprites/in-game-sprite-art.png"
+		}
+	],
+	"scale": 25,
+	"theme": ""
+}

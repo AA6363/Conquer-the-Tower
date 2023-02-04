@@ -12,6 +12,7 @@ func _on_HitBox_body_entered(body):
 		else:
 			Global.player_lives -= 1
 			get_tree().call_group("Hp", "size_reduction")
+			AudioPlayer.play_sound(AudioPlayer.HURT)
 		
 	if body is Bullet:
 		if get_parent() is walkingEnemey: #Detects if parent the bullet collided with enemy
@@ -19,6 +20,7 @@ func _on_HitBox_body_entered(body):
 				get_parent().queue_free()
 			else:
 				enemy_hp -=1
+				AudioPlayer.play_sound(AudioPlayer.ENEHURT)
 		if get_parent() is slimeBoss:
 			if bossHp <= 0:
 				get_parent().queue_free()

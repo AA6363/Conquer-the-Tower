@@ -58,4 +58,7 @@ shape = SubResource( 3 )
 position = Vector2( 32, -32 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-current = true
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

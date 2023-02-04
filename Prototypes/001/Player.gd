@@ -7,6 +7,7 @@ var double_jump:= 1
 
 
 export(Resource) var moveData 
+export(NodePath) onready var camera_funny = get_node(camera_funny) as Camera2D
 
 const BULLET: = preload("res://Scenes/Bullet.tscn")
 
@@ -83,8 +84,15 @@ func apply_friction():
 #Speeds up the player to 50, the max value
 func apply_accelaretion(amount):
 	velocity.x = move_toward(velocity.x, amount * moveData.MAX_SPEED , moveData.ACCELERATION)
-	
+#plays sound and reloads screen when the player dies
 func player_die():
 	AudioPlayer.play_sound(AudioPlayer.HURT)
 	get_tree().reload_current_scene()
-	
+
+func _on_VisibilityNotifier2D_screen_exited():
+	print(camera_funny.position.x)
+	if position.x < camera_funny.position.x:
+		camera_funny.position.x -= 1024
+	else:
+		camera_funny.position.x += 1024
+	print(camera_funny.position.x) 
