@@ -6,3 +6,4 @@ func _ready():
 func size_reduction():
 	rect_size.x -= 64
 
+

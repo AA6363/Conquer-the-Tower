@@ -7,7 +7,9 @@ var double_jump:= 1
 
 
 export(Resource) var moveData 
-export(NodePath) onready var camera_funny = get_node(camera_funny) as Camera2D
+#export(NodePath) onready var camera_funny = get_node(camera_funny) as Camera2D
+
+onready var remoteTransform2D:= $RemoteTransform2D
 
 const BULLET: = preload("res://Scenes/Bullet.tscn")
 
@@ -27,23 +29,13 @@ func _physics_process(delta):
 		$AnimatedSprite.animation = "Run"
 		apply_accelaretion(input.x)
 		#Sets Position2D position/manages bullet spawnpoint
-		if input.x > 0: 
-			$AnimatedSprite.flip_h = false
-			$Position2D.position.x = 35
-
-		elif input.x < 0:
-			$AnimatedSprite.flip_h = true
-			$Position2D.position.x = -35
-
-		
-	
+		pos2D_positioning(input)
 	#jump
 	if is_on_floor():
 
 		double_jump =1
 		if Input.is_action_just_pressed("jump"):
-			velocity.y = moveData.JUMP_FORCE
-			AudioPlayer.play_sound(AudioPlayer.JUMP)
+			jump()
 	else:
 		$AnimatedSprite.animation = "Jump"
 		if Input.is_action_just_released("jump") and velocity.y < moveData.JUMP_FORCE_RELEASE:
@@ -51,8 +43,7 @@ func _physics_process(delta):
 		
 		#double jump
 		if Input.is_action_just_pressed("jump") and double_jump > 0:
-			velocity.y = moveData.JUMP_FORCE
-			double_jump -= 1
+			double_jump()
 		if velocity.y > 0:
 			velocity.y += moveData.FALL_FORCE
 
@@ -67,12 +58,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("shoot") and Global.number_of_bullets > 0:
 		var bullet = BULLET.instance()
 		Global.number_of_bullets -=1
-		if sign($Position2D.position.x) == 1:
-			bullet.set_direction(1)
-		else:
-			bullet.set_direction(-1)
-		get_parent().add_child(bullet)
-		bullet.global_position = $Position2D.global_position
+		bullet_spawnpoint_position(bullet)
 	
 #simply applies gravity	
 func apply_gravity():
@@ -87,12 +73,38 @@ func apply_accelaretion(amount):
 #plays sound and reloads screen when the player dies
 func player_die():
 	AudioPlayer.play_sound(AudioPlayer.HURT)
-	get_tree().reload_current_scene()
+	queue_free()
+	Events.emit_signal("player_died")
+	#get_tree().reload_current_scene()
+func connect_camera(camera):
+	var camera_path = camera.get_path()
+	remoteTransform2D.remote_path = camera_path
+	pass
+
+func jump():
+	velocity.y = moveData.JUMP_FORCE
+	AudioPlayer.play_sound(AudioPlayer.JUMP)
+
+func double_jump():
+	velocity.y = moveData.JUMP_FORCE
+	double_jump -= 1
+
+func pos2D_positioning(input):
+	if input.x > 0: 
+		$AnimatedSprite.flip_h = false
+		$Position2D.position.x = 35
+	elif input.x < 0:
+		$AnimatedSprite.flip_h = true
+		$Position2D.position.x = -35
+
+func bullet_spawnpoint_position(bullet):
+	if sign($Position2D.position.x) == 1:
+		bullet.set_direction(1)
+	else:
+		bullet.set_direction(-1)
+	get_parent().add_child(bullet)
+	bullet.global_position = $Position2D.global_position
 
 func _on_VisibilityNotifier2D_screen_exited():
-	print(camera_funny.position.x)
-	if position.x < camera_funny.position.x:
-		camera_funny.position.x -= 1024
-	else:
-		camera_funny.position.x += 1024
-	print(camera_funny.position.x) 
+	Events.emit_signal("player_left_camera")
+
