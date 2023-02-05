@@ -76,7 +76,9 @@ func player_die():
 	queue_free()
 	Events.emit_signal("player_died")
 	#get_tree().reload_current_scene()
+
 func connect_camera(camera):
+
 	var camera_path = camera.get_path()
 	remoteTransform2D.remote_path = camera_path
 	pass

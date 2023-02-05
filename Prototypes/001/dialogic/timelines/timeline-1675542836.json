@@ -1,8 +1,8 @@
 {
 	"events": [
 		{
-			"animation": "[Default]",
-			"animation_length": 1,
+			"animation": "1-fade_in.gd",
+			"animation_length": 0.5,
 			"change_mirror_portrait": false,
 			"change_z_index": false,
 			"character": "character-1675541986.json",
