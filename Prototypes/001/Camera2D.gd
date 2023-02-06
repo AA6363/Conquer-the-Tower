@@ -18,7 +18,7 @@ func _on_player_left_camera():
 			position.x -= 1024
 		else:
 			position.x += 1024
-		print(position.x) 
+#		print(position.x) 
 
 func _on_new_player_spawn(new_player):
 	yield(get_tree().create_timer(0.1),"timeout")

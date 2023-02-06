@@ -59,6 +59,7 @@ func _physics_process(delta):
 		var bullet = BULLET.instance()
 		Global.number_of_bullets -=1
 		bullet_spawnpoint_position(bullet)
+	reload_scene()
 	
 #simply applies gravity	
 func apply_gravity():
@@ -90,6 +91,10 @@ func jump():
 func double_jump():
 	velocity.y = moveData.JUMP_FORCE
 	double_jump -= 1
+
+func reload_scene():
+	if Input.is_action_just_pressed("player_respawn"):
+		get_tree().reload_current_scene()
 
 func pos2D_positioning(input):
 	if input.x > 0: 
