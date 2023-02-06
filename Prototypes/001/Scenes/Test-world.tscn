@@ -27,11 +27,14 @@ position = Vector2( 2112, 512 )
 [node name="CheckPoint" parent="." instance=ExtResource( 10 )]
 position = Vector2( 384, 320 )
 
+[node name="CheckPoint2" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1600, 320 )
+
 [node name="Node" parent="." instance=ExtResource( 9 )]
 position = Vector2( 514, 300 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 224, 383 )
+position = Vector2( 224, 389 )
 
 [node name="Spike" parent="." instance=ExtResource( 3 )]
 position = Vector2( 544, 384 )
