@@ -3,7 +3,11 @@ extends Node
 var number_of_bullets = 5
 var player_lives = 3
 var player_checkp_position = Vector2(224 , 383)
+#var player_checkp_position = Vector2(1788, 448)
+
 var camera_position = Vector2(514, 300)
+#var camera_position = Vector2(1770, 300)
+
 
 
 func _process(delta):

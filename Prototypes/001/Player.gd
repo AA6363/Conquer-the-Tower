@@ -1,10 +1,12 @@
 extends KinematicBody2D
 class_name Player
 
+enum {MOVE, CUTSCENE}
+
 #Sets the player's velocity to zero
 var velocity: = Vector2.ZERO
 var double_jump:= 1
-
+var state = MOVE
 
 export(Resource) var moveData 
 #export(NodePath) onready var camera_funny = get_node(camera_funny) as Camera2D
@@ -20,8 +22,11 @@ func _physics_process(delta):
 	
 	apply_gravity()
 	var input:= Vector2.ZERO
-	input.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	input.x = Input.get_axis("ui_left", "ui_right")
+	if state == MOVE:move_state(input)
+	elif state == CUTSCENE:cutscene_state()
 	
+func move_state(input):
 	if input.x == 0:
 		$AnimatedSprite.animation = "Idle"
 		apply_friction()
@@ -60,7 +65,9 @@ func _physics_process(delta):
 		Global.number_of_bullets -=1
 		bullet_spawnpoint_position(bullet)
 	reload_scene()
-	
+func cutscene_state():
+	pass
+
 #simply applies gravity	
 func apply_gravity():
 	velocity.y += moveData.GRAVITY
