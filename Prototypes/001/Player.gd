@@ -18,7 +18,7 @@ const BULLET: = preload("res://Scenes/Bullet.tscn")
 # warning-ignore:unused_argument
 func _physics_process(delta):
 	#movement
-	
+	print(velocity.y)
 	
 	apply_gravity()
 	var input:= Vector2.ZERO
@@ -37,21 +37,19 @@ func move_state(input):
 		pos2D_positioning(input)
 	#jump
 	if is_on_floor():
-
+		moveData.FALL_FORCE = 0
 		double_jump =1
-		if Input.is_action_just_pressed("jump"):
-			jump()
+
+		jump()
 	else:
 		$AnimatedSprite.animation = "Jump"
-		if Input.is_action_just_released("jump") and velocity.y < moveData.JUMP_FORCE_RELEASE:
-			velocity.y = moveData.JUMP_FORCE_RELEASE
+		jump_force_release()
+		
 		
 		#double jump
-		if Input.is_action_just_pressed("jump") and double_jump > 0:
-			double_jump()
-		if velocity.y > 0:
-			velocity.y += moveData.FALL_FORCE
-
+		
+		double_jump()
+		fall_force()
 	var was_in_air: = not is_on_floor()
 	#removes the leftover velocity
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -60,7 +58,7 @@ func move_state(input):
 		$AnimatedSprite.animation = "Run"
 		$AnimatedSprite.frame = 1
 		#Shooting/bullet spawning
-	if Input.is_action_just_pressed("shoot") and Global.number_of_bullets > 0:
+	if Input.is_action_pressed("shoot") and Global.number_of_bullets > 0:
 		var bullet = BULLET.instance()
 		Global.number_of_bullets -=1
 		bullet_spawnpoint_position(bullet)
@@ -70,7 +68,7 @@ func cutscene_state():
 
 #simply applies gravity	
 func apply_gravity():
-	velocity.y += moveData.GRAVITY
+	velocity.y += moveData.GRAVITY 
 	velocity.y = min(velocity.y, 250)
 #velocity.x is going towards 0, which slows and later stops the player
 func apply_friction():
@@ -78,6 +76,16 @@ func apply_friction():
 #Speeds up the player to 50, the max value
 func apply_accelaretion(amount):
 	velocity.x = move_toward(velocity.x, amount * moveData.MAX_SPEED , moveData.ACCELERATION)
+	
+func fall_force():
+	if velocity.y > 0: 
+			velocity.y += moveData.FALL_FORCE
+			moveData.FALL_FORCE = move_toward(moveData.FALL_FORCE , 500 , 5)
+			
+func jump_force_release():
+	if Input.is_action_just_released("jump") and velocity.y < moveData.JUMP_FORCE_RELEASE:
+			velocity.y = moveData.JUMP_FORCE_RELEASE
+
 #plays sound and reloads screen when the player dies
 func player_die():
 	AudioPlayer.play_sound(AudioPlayer.HURT)
@@ -92,12 +100,15 @@ func connect_camera(camera):
 	pass
 
 func jump():
-	velocity.y = moveData.JUMP_FORCE
-	AudioPlayer.play_sound(AudioPlayer.JUMP)
+	if Input.is_action_just_pressed("jump"):
+		velocity.y = move_toward(moveData.JUMP_FORCE, 0, 100)
+		AudioPlayer.play_sound(AudioPlayer.JUMP)
 
 func double_jump():
-	velocity.y = moveData.JUMP_FORCE
-	double_jump -= 1
+	if Input.is_action_just_pressed("jump") and double_jump > 0:
+		velocity.y = move_toward(moveData.JUMP_FORCE, 0, 100)
+		
+		double_jump -= 1
 
 func reload_scene():
 	if Input.is_action_just_pressed("player_respawn"):
@@ -121,4 +132,7 @@ func bullet_spawnpoint_position(bullet):
 
 func _on_VisibilityNotifier2D_screen_exited():
 	Events.emit_signal("player_left_camera")
+
+
+
 

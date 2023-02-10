@@ -12,7 +12,7 @@ var state_value
 var velocity = Vector2.ZERO
 var direction = Vector2.LEFT
 var JUMP_FORCE = -350
-var FALL_FORCE = 5
+var FALL_FORCE
 var GRAVITY = 5
 var HORIZONTAL_SPEED = 400
 var HORIZONTAL_JUMP_SPEED = 200
@@ -57,9 +57,11 @@ func jump():
 		direction.x *= -1
 	velocity.x = direction.x * HORIZONTAL_JUMP_SPEED
 	if is_on_floor():
+		FALL_FORCE = 0
 		velocity.y += JUMP_FORCE
 		if velocity.y > 0:
 			velocity.y += FALL_FORCE
+			FALL_FORCE = move_toward(FALL_FORCE , 500 , 3.5)
 	gravity()
 	
 func slide():
