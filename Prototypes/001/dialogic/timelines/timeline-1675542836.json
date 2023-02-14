@@ -65,7 +65,7 @@
 			"event_id": "dialogic_013"
 		},
 		{
-			"emit_signal": "",
+			"emit_signal": "asd",
 			"event_id": "dialogic_040"
 		}
 	],

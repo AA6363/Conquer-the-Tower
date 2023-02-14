@@ -28,6 +28,7 @@ func _physics_process(delta):
 	elif state == CUTSCENE:cutscene_state()
 func _ready():
 	Events.connect("dialogue_start",self,"cutscene_state")
+	Events.connect("dialog_ends",self,"_on_dialog_ends")
 	
 func move_state(input):
 	if input.x == 0:
@@ -66,8 +67,8 @@ func move_state(input):
 func cutscene_state():
 	state = CUTSCENE
 	apply_gravity()
-	if Input.is_action_just_pressed("debug_start_fight"):
-		state = MOVE
+#	if Input.is_action_just_pressed("debug_start_fight"):
+		
 
 #simply applies gravity	
 func apply_gravity():
@@ -146,3 +147,6 @@ func shoot_bullet():
 
 func _on_Timer_timeout():
 	shoot_bullet()
+
+func _on_dialog_ends():
+	state = MOVE

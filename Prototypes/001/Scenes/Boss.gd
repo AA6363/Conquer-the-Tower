@@ -30,14 +30,14 @@ func _ready():
 #	state_value = 2
 	timer.connect("timeout", self, "_on_timeout")
 	Events.connect("dialogue_start", self, "_on_dialogue_start")
-	
-	
+	Events.connect("dialog_ends",self, "_on_dialog_ends")
 
 func _physics_process(delta):
 	
 	
-#	print(FALL_FORCE)
+	
 	if state == FIGHT: pick_move()
+	if state == CUTSCENE: cutscene_state()
 	
 func _on_timeout():
 	state_value = randomNumber.randi_range(1, 3)
@@ -81,11 +81,16 @@ func pick_move():
 		3: slide()
 		4: idle()
 	velocity = move_and_slide(velocity, Vector2.UP)
-	print(state_value)
+#	print(state_value)
 
 func _on_dialogue_start():
+	state = CUTSCENE
+	
+func cutscene_state():
 	state_value = 4
 	timer.stop()
-	if Input.is_action_just_pressed("debug_start_fight"):
-		timer.start()
 
+func _on_dialog_ends():
+	timer.start()
+	print("time_should be working now!")
+	state = FIGHT
