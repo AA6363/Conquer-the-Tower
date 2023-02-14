@@ -25,6 +25,48 @@
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "My, an intruder has appaerad! How exciting!"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "What brings you to this dungeon?"
+		},
+		{
+			"choice": "Uhh...  I'm lost.",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1675541986.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Aw... How horrible! Allow me to guide you. To your grave!"
+		},
+		{
+			"choice": "I'm broke, I need money",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1675541986.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Too bad..."
+		},
+		{
+			"event_id": "dialogic_013"
+		},
+		{
+			"emit_signal": "",
+			"event_id": "dialogic_040"
 		}
 	],
 	"metadata": {

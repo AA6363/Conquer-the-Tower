@@ -16,4 +16,4 @@ shape = SubResource( 1 )
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
 
-[connection signal="child_entered_tree" from="RemoteTransform2D" to="." method="_on_RemoteTransform2D_child_entered_tree"]
+[connection signal="body_entered" from="." to="." method="_on_DialogueArea_body_entered"]

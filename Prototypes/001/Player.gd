@@ -7,6 +7,7 @@ enum {MOVE, CUTSCENE}
 var velocity: = Vector2.ZERO
 var double_jump:= 1
 var state = MOVE
+var bullet
 
 export(Resource) var moveData 
 #export(NodePath) onready var camera_funny = get_node(camera_funny) as Camera2D
@@ -18,13 +19,15 @@ const BULLET: = preload("res://Scenes/Bullet.tscn")
 # warning-ignore:unused_argument
 func _physics_process(delta):
 	#movement
-	print(velocity.y)
+#	print(velocity.y)
 	
 	apply_gravity()
 	var input:= Vector2.ZERO
 	input.x = Input.get_axis("ui_left", "ui_right")
 	if state == MOVE:move_state(input)
 	elif state == CUTSCENE:cutscene_state()
+func _ready():
+	Events.connect("dialogue_start",self,"cutscene_state")
 	
 func move_state(input):
 	if input.x == 0:
@@ -44,10 +47,7 @@ func move_state(input):
 	else:
 		$AnimatedSprite.animation = "Jump"
 		jump_force_release()
-		
-		
 		#double jump
-		
 		double_jump()
 		fall_force()
 	var was_in_air: = not is_on_floor()
@@ -58,13 +58,16 @@ func move_state(input):
 		$AnimatedSprite.animation = "Run"
 		$AnimatedSprite.frame = 1
 		#Shooting/bullet spawning
-	if Input.is_action_pressed("shoot") and Global.number_of_bullets > 0:
-		var bullet = BULLET.instance()
-		Global.number_of_bullets -=1
-		bullet_spawnpoint_position(bullet)
+
+	
+		
+		
 	reload_scene()
 func cutscene_state():
-	pass
+	state = CUTSCENE
+	apply_gravity()
+	if Input.is_action_just_pressed("debug_start_fight"):
+		state = MOVE
 
 #simply applies gravity	
 func apply_gravity():
@@ -80,7 +83,7 @@ func apply_accelaretion(amount):
 func fall_force():
 	if velocity.y > 0: 
 			velocity.y += moveData.FALL_FORCE
-			moveData.FALL_FORCE = move_toward(moveData.FALL_FORCE , 500 , 5)
+			moveData.FALL_FORCE = move_toward(moveData.FALL_FORCE , 150 , 2)
 			
 func jump_force_release():
 	if Input.is_action_just_released("jump") and velocity.y < moveData.JUMP_FORCE_RELEASE:
@@ -101,7 +104,7 @@ func connect_camera(camera):
 
 func jump():
 	if Input.is_action_just_pressed("jump"):
-		velocity.y = move_toward(moveData.JUMP_FORCE, 0, 100)
+		velocity.y = move_toward(moveData.JUMP_FORCE, -150, 100)
 		AudioPlayer.play_sound(AudioPlayer.JUMP)
 
 func double_jump():
@@ -133,6 +136,13 @@ func bullet_spawnpoint_position(bullet):
 func _on_VisibilityNotifier2D_screen_exited():
 	Events.emit_signal("player_left_camera")
 
+func shoot_bullet():
+	if Input.is_action_pressed("shoot") and Global.number_of_bullets > 0:
+		bullet = BULLET.instance()
+		Global.number_of_bullets -=1
+		bullet_spawnpoint_position(bullet)
 
 
 
+func _on_Timer_timeout():
+	shoot_bullet()
