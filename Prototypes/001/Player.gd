@@ -12,6 +12,7 @@ var bullet
 export(Resource) var moveData 
 #export(NodePath) onready var camera_funny = get_node(camera_funny) as Camera2D
 
+onready var animatedSprite:= $AnimatedSprite
 onready var remoteTransform2D:= $RemoteTransform2D
 
 const BULLET: = preload("res://Scenes/Bullet.tscn")
@@ -32,10 +33,10 @@ func _ready():
 	
 func move_state(input):
 	if input.x == 0:
-		$AnimatedSprite.animation = "Idle"
+		animatedSprite.animation = "Idle"
 		apply_friction()
 	else:
-		$AnimatedSprite.animation = "Run"
+		animatedSprite.animation = "Run"
 		apply_accelaretion(input.x)
 		#Sets Position2D position/manages bullet spawnpoint
 		pos2D_positioning(input)
@@ -46,7 +47,7 @@ func move_state(input):
 
 		jump()
 	else:
-		$AnimatedSprite.animation = "Jump"
+		animatedSprite.animation = "Jump"
 		jump_force_release()
 		#double jump
 		double_jump()
@@ -56,8 +57,8 @@ func move_state(input):
 	velocity = move_and_slide(velocity, Vector2.UP)
 	var just_landed:= is_on_floor() and was_in_air
 	if just_landed:
-		$AnimatedSprite.animation = "Run"
-		$AnimatedSprite.frame = 1
+		animatedSprite.animation = "Run"
+		animatedSprite.frame = 1
 		#Shooting/bullet spawning
 
 	
@@ -120,10 +121,10 @@ func reload_scene():
 
 func pos2D_positioning(input):
 	if input.x > 0: 
-		$AnimatedSprite.flip_h = false
+		animatedSprite.flip_h = false
 		$Position2D.position.x = 35
 	elif input.x < 0:
-		$AnimatedSprite.flip_h = true
+		animatedSprite.flip_h = true
 		$Position2D.position.x = -35
 
 func bullet_spawnpoint_position(bullet):

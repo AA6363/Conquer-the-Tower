@@ -85,6 +85,11 @@ _global_script_classes=[ {
 "path": "res://HitBox.gd"
 }, {
 "base": "KinematicBody2D",
+"class": "jumpingEnemey",
+"language": "GDScript",
+"path": "res://Scenes/JumpingEnemy.gd"
+}, {
+"base": "KinematicBody2D",
 "class": "slimeBoss",
 "language": "GDScript",
 "path": "res://Scenes/Boss.gd"
@@ -110,6 +115,7 @@ _global_script_class_icons={
 "Player": "",
 "PlayerMovementData": "",
 "hitBox": "",
+"jumpingEnemey": "",
 "slimeBoss": "",
 "walkingEnemey": ""
 }

@@ -53,7 +53,7 @@ func jump():
 	if is_on_floor():
 		FALL_FORCE = 0
 		velocity.y += JUMP_FORCE
-		if velocity.y < 0:
+		if velocity.y > 0:
 			velocity.y += FALL_FORCE
 			FALL_FORCE = move_toward(FALL_FORCE , 500 , 50)
 	gravity()

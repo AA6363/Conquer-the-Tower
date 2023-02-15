@@ -2,7 +2,7 @@ extends Area2D
 class_name hitBox
 
 export(int) var enemy_hp = 5
-export(int) var bossHp = 49
+export(int) var bossHp = 99
 
 func _on_HitBox_body_entered(body):
 	if body is Player:
@@ -16,6 +16,12 @@ func _on_HitBox_body_entered(body):
 		
 	if body is Bullet:
 		if get_parent() is walkingEnemey: #Detects if parent the bullet collided with enemy
+			if enemy_hp <= 0:
+				get_parent().queue_free()
+			else:
+				enemy_hp -=1
+				AudioPlayer.play_sound(AudioPlayer.ENEHURT)
+		if get_parent() is jumpingEnemey: #Detects if parent the bullet collided with enemy
 			if enemy_hp <= 0:
 				get_parent().queue_free()
 			else:

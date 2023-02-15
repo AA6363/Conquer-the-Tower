@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/HitBox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Conquer-the-Tower-dev-sprites.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/JumpingEnemy.gd" type="Script" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="JumpingEnemy" type="KinematicBody2D"]
+script = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -32 )
+frames = SubResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 0, 2.8125 )
+scale = Vector2( 1, 1.02083 )
+polygon = PoolVector2Array( -31, -2.7551, -25, -15.4898, -20, -24.3061, -8, -30, 8, -30, 20, -23.3265, 24, -16.4694, 29, -2.7551 )
+
+[node name="HitBox" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, -1 )
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="HitBox"]
+position = Vector2( -0.120834, 0.375001 )
+scale = Vector2( 0.958333, 0.958333 )
+polygon = PoolVector2Array( -33.2652, 0.652173, -26, -16, -21, -24, -8, -30, 8, -30, 21, -24, 26, -16, 32.4739, 0.652173 )
