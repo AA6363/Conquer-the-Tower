@@ -59,10 +59,6 @@ func move_state(input):
 	if just_landed:
 		animatedSprite.animation = "Run"
 		animatedSprite.frame = 1
-		#Shooting/bullet spawning
-
-	
-		
 		
 	reload_scene()
 func cutscene_state():
@@ -135,16 +131,14 @@ func bullet_spawnpoint_position(bullet):
 	get_parent().add_child(bullet)
 	bullet.global_position = $Position2D.global_position
 
-func _on_VisibilityNotifier2D_screen_exited():
-	Events.emit_signal("player_left_camera")
-
 func shoot_bullet():
 	if Input.is_action_pressed("shoot") and Global.number_of_bullets > 0:
 		bullet = BULLET.instance()
 		Global.number_of_bullets -=1
 		bullet_spawnpoint_position(bullet)
 
-
+func _on_VisibilityNotifier2D_screen_exited():
+	Events.emit_signal("player_left_camera")
 
 func _on_Timer_timeout():
 	shoot_bullet()

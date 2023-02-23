@@ -4,6 +4,8 @@ class_name hitBox
 export(int) var enemy_hp = 5
 export(int) var bossHp = 99
 
+onready var textBox = $RichTextLabel
+
 func _on_HitBox_body_entered(body):
 	if body is Player:
 		if Global.player_lives <= 0:
@@ -35,5 +37,4 @@ func _on_HitBox_body_entered(body):
 				bossHp -= 1
 				AudioPlayer.play_sound(AudioPlayer.ENEHURT)
 		body.queue_free()
-
 
