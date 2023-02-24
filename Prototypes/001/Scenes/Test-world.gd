@@ -31,4 +31,4 @@ func dialog_listener(string):
 	match string:
 		"asd":
 			Events.emit_signal("dialog_ends")
-			print("heya!")
+#			print("heya!")

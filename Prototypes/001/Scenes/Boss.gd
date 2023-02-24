@@ -17,24 +17,16 @@ var GRAVITY = 5
 var HORIZONTAL_SPEED = 350
 var HORIZONTAL_JUMP_SPEED = 200
 
-#var state_decided = {
-#	1: SHOOT,
-#	2: JUMP,
-#	3: SLIDE,
-#	4: IDLE
-#}
-
 func _ready():
+	
 	randomNumber.randomize()
 	state_value = randomNumber.randi_range(1, 3)
-#	state_value = 2
+	state = CUTSCENE
 	timer.connect("timeout", self, "_on_timeout")
 	Events.connect("dialogue_start", self, "_on_dialogue_start")
 	Events.connect("dialog_ends",self, "_on_dialog_ends")
 
 func _physics_process(delta):
-	
-	
 	
 	if state == FIGHT: pick_move()
 	if state == CUTSCENE: cutscene_state()

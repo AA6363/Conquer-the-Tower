@@ -6,7 +6,7 @@ func _ready():
 func _on_DialogueArea_body_entered(body):
 	if body is Player:
 		Events.emit_signal("dialogue_start")
-		print("asd")
+#		print("asd")
 
 
 func _on_dialog_end():
